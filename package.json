@@ -1,0 +1,33 @@
+{
+    "name" : "node-red-contrib-authed-websocket",
+    "version": "1.0.0",
+    "description": "A websocket input and output node that rejects connections based on a external authentication flow.",
+    "main": "index.js",
+    "dependencies": {
+        "ws": "^7.1.1",
+        "uuid": "^3.3.2"
+    },
+    "devDependencies": {
+        "@types/node": "^8.0.31",
+        "typescript": "^2.5.2"
+    },
+    "scripts": {
+        "build": "./node_modules/typescript/bin/tsc",
+        "start": "node .",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "clean": "rm -rf index.js node_modules"
+    },
+    "author": "Florian Schäfer <florian.schaefer@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/fschaefer/node-red-contrib-authed-websocket.git"
+    },
+    "node-red" : {
+        "nodes": {
+            "authed-websocket-input-node": "index.js"
+        }
+    },
+    "keywords": ["node-red", "websocket", "authenticated"]
+}
+
