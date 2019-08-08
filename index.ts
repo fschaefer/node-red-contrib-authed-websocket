@@ -12,13 +12,6 @@ let clientHashMap: any = {}
 
 module.exports = function (RED: any) {
 
-    function authenticate(config: any, request: any, fn: (err: boolean, client: any) => void) {
-        const pathname = url.parse(request.url).pathname
-        let authed = normalizePath(pathname) === normalizePath(config.pathname)
-        let error = !authed
-        fn(error, {})
-    }
-
     function AuthedWebsocketInputNode(this: any, config: any) {
 
         RED.nodes.createNode(this, config)
@@ -49,12 +42,23 @@ module.exports = function (RED: any) {
         })
 
         webserver.server.on('upgrade', (request: any, socket: any, head: any) => {
-            let clientId = uuidv4()
-            let msg = {
+            const clientId = uuidv4()
+            const headers = request.headers
+            const parsedUrl = url.parse(request.url)
+
+            let msg: any = {
                 "payload": "connect",
                 "_clientid": clientId,
-                "_headers": request.headers
+                "_headers": headers
             }
+
+            Object.keys(parsedUrl).forEach((prop: string) => {
+                if (typeof parsedUrl[prop] == "string") {
+                    msg["_" + prop] = (prop == "pathname")
+                        ? normalizePath(parsedUrl[prop])
+                        : parsedUrl[prop]
+                }
+            })
 
             clientHashMap[clientId] = {
                 "upgrade":  {
