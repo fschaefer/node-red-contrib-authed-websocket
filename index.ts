@@ -19,7 +19,7 @@ module.exports = function (RED: any) {
         fn(error, {})
     }
 
-	function AuthedWebsocketInputNode(this: any, config: any) {
+    function AuthedWebsocketInputNode(this: any, config: any) {
 
         RED.nodes.createNode(this, config)
 
@@ -69,7 +69,7 @@ module.exports = function (RED: any) {
 
             this.send([msg, undefined])
         })
-            
+
         this.on('input', (message: any) => {
             let clientId = message._clientid
             if (clientId && clientHashMap[clientId] && clientHashMap[clientId].upgrade) {
@@ -92,7 +92,7 @@ module.exports = function (RED: any) {
     RED.nodes.registerType("authed-websocket-input-node", AuthedWebsocketInputNode)
 
 
-	function AuthedWebsocketOutputNode(this: any, config: any) {
+    function AuthedWebsocketOutputNode(this: any, config: any) {
 
         RED.nodes.createNode(this, config)
 
