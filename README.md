@@ -1,5 +1,5 @@
 # node-red-contrib-authed-websocket
-A websocket input and output node that rejects connections based on a external authentication flow.
+A websocket input and output node that rejects connections based on an external authentication flow.
 
 Install
 -------
