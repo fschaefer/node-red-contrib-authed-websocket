@@ -1,7 +1,7 @@
 {
     "name" : "node-red-contrib-authed-websocket",
     "version": "1.0.0",
-    "description": "A websocket input and output node that rejects connections based on a external authentication flow.",
+    "description": "A websocket input and output node that rejects connections based on an external authentication flow.",
     "main": "index.js",
     "dependencies": {
         "ws": "^7.1.1",
