@@ -43,6 +43,10 @@
         category: "Authed Websockets",
         color: "#F3B567",
         defaults: {
+            webserver: {
+                value: "",
+                type: "authed-websocket-remote-webserver"
+            },
             name: {
                 value: ""
             }
@@ -58,8 +62,12 @@
 
 <script type="text/x-red" data-template-name="authed-websocket-output-node">
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Webserver</label>
-        <input type="text" id="node-input-name" placeholder="Webserver">
+        <label for="node-input-webserver"><i class="icon-tag"></i> Webserver</label>
+        <input type="text" id="node-input-webserver" placeholder="Webserver">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
 

@@ -42,9 +42,12 @@ module.exports = function (RED: any) {
         })
 
         webserver.server.on('upgrade', (request: any, socket: any, head: any) => {
+
             const clientId = uuidv4()
             const headers = request.headers
             const parsedUrl = url.parse(request.url)
+
+            console.log(`Received "upgrade" request from ${clientId}`)
 
             let msg: any = {
                 "payload": "connect",
@@ -81,10 +84,12 @@ module.exports = function (RED: any) {
                 let socket = clientHashMap[clientId].upgrade.socket
                 let head = clientHashMap[clientId].upgrade.head
                 if (message.payload == "reject") {
+                    console.log(`Received "reject" for ${clientId}`)
                     socket.destroy()
                     delete clientHashMap[clientId]
                 }
                 else {
+                    console.log(`Doing "upgrade" for ${clientId}`)
                     wss.handleUpgrade(request, socket, head, (ws: any) => {
                         wss.emit('connection', ws, request, clientId)
                     })
@@ -102,6 +107,7 @@ module.exports = function (RED: any) {
 
         this.on('input', (message: any) => {
             let ws
+
             if (!message) {
                 /* no message */
             }
@@ -121,6 +127,8 @@ module.exports = function (RED: any) {
                 let msg = typeof message.payload == "object"
                     ? JSON.stringify(message.payload)
                     : message.payload
+
+                console.log(`Sending message ${msg} to user ${message._clientid}`)
 
                 if (message.terminate) {
                     ws.terminate()
